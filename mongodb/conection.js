@@ -11,8 +11,8 @@ exports.goes = function (){
             // Connect the client to the server
             await client.connect();
 
-            const DB = client.db('VladDB');
-            const currentMissions = DB.collection('Missions');
+            const DB = client.db(process.env.DB_NAME);
+            const currentMissions = DB.collection(process.env.DB_COLLECTION);
 
             const query = { name: "Mikita" };
 
