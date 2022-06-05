@@ -1,10 +1,19 @@
 const express = require('express');
 const ENV = require('dotenv').config();
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT;
+const test = require('./routes/getData.js');
 
-const { goes } = require('./mongodb/conection.js');
+app.listen(PORT,()=>{
+    let msg = `\n\n\n\t\tServer Running on port ${PORT}\n\n\n`;
+    console.log(msg);
+})
 
-goes();
+app.get('/',function(req,res){
+    let path = require('path');
+    let html = path.join(__dirname,'../','text.html')
+    res.sendFile(html);
+})
 
-// console.log(process.env);
+
+app.use('/testAPI', test);
