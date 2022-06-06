@@ -3,19 +3,9 @@ exports.goes = async function (ms){
 
         let timer = setTimeout;
 
-        let HandleSetTimeoutError = new Promise((_,reject)=>{
-            timer(()=>{
-                try {
-                    throw new Error('Time is up');
-                } catch (error) {
-                    reject(error)
-                }
-            },ms);
-        })
-
-        HandleSetTimeoutError.catch((e)=>{
-            reject({reason:e,status:"BAD",passedMS:ms});
-        })
+        timer(()=>{
+            reject('time is up')
+        },ms);
 
         
         const { MongoClient } = require("mongodb");
@@ -52,6 +42,7 @@ exports.goes = async function (ms){
     
             return run()
     }).catch((e=>{
+        console.log(e);
         return e;
     }))
 }
